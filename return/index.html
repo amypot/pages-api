@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Return</title>
+  <link rel="icon" sizes="64x64" href="//qsim.top/favicon.ico">
+  <style>
+    body {
+      margin: 0 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow-y: hidden;
+      background-color: #eee;
+    }
+    a {
+      color: gray;
+      text-decoration: none;
+    }
+    a:hover {
+      color: black;
+      text-decoration: underline;
+    }
+    #c {
+      text-align: center;
+    }
+    #intro {
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div id="c">
+    <h1 id="title"></h1>
+    <span id="intro"></span>
+  </div>
+  
+  <script>
+    // 多語言內容
+    const translations = {
+      "en": {
+        "redirecting": "Redirecting...",
+        "click_continue": "If you are not redirected, please click the link to continue: ",
+        "error_redirect": "Redirect Error",
+        "error_source": "The source is not from our site, please check the security and click the link to continue: ",
+        "missing_url": "ERROR",
+        "missing_target": "Missing target URL",
+        "url_error": "URL Error: ",
+        "back_home": "Return to homepage"
+      },
+      "es": {
+        "redirecting": "Redirigiendo...",
+        "click_continue": "Si no se redirige, haga clic en el enlace para continuar: ",
+        "error_redirect": "Error de redirección",
+        "error_source": "La fuente no es de nuestro sitio, por favor verifique la seguridad y haga clic en el enlace para continuar: ",
+        "missing_url": "ERROR",
+        "missing_target": "Falta la URL de destino",
+        "url_error": "error de URL: ",
+        "back_home": "Regresar a la página de inicio"
+      },
+      "fr": {
+        "redirecting": "Redirection en cours...",
+        "click_continue": "Si vous n'êtes pas redirigé, veuillez cliquer sur le lien pour continuer: ",
+        "error_redirect": "Erreur de redirection",
+        "error_source": "La source ne provient pas de notre site, veuillez vérifier la sécurité puis cliquer sur le lien pour continuer: ",
+        "missing_url": "ERROR",
+        "missing_target": "URL de destination manquante",
+        "url_error": "Erreur d'URL: ",
+        "back_home": "Retourner à la page d'accueil"
+      },
+      "de": {
+        "redirecting": "Weiterleitung...",
+        "click_continue": "Wenn Sie nicht weitergeleitet werden, klicken Sie bitte auf den Link, um fortzufahren: ",
+        "error_redirect": "Weiterleitungsfehler",
+        "error_source": "Die Quelle stammt nicht von unserer Website, bitte überprüfen Sie die Sicherheit und klicken Sie auf den Link, um fortzufahren: ",
+        "missing_url": "ERROR",
+        "missing_target": "Fehlende Ziel-URL",
+        "url_error": "URL-Fehler: ",
+        "back_home": "Zur Startseite zurückkehren"
+      },
+      "zh-TW": {
+        "redirecting": "跳轉中...",
+        "click_continue": "如未跳轉，請點擊鏈接繼續訪問：",
+        "error_redirect": "跳轉錯誤",
+        "error_source": "來源並非本站，請檢查安全後點擊連結繼續訪問：",
+        "missing_url": "錯誤",
+        "missing_target": "缺少目標網址",
+        "url_error": "網址錯誤：",
+        "back_home": "返回首頁"
+      },
+      "zh-CN": {
+        "redirecting": "跳转中...",
+        "click_continue": "如未跳转，请点击以下链接继续访问：",
+        "error_redirect": "跳转错误",
+        "error_source": "来源并非本站，请检查安全后点击链接继续访问：",
+        "missing_url": "错误",
+        "missing_target": "缺少目标网址",
+        "url_error": "网址错误：",
+        "back_home": "返回主页"
+      }
+    };
+
+    // 取得瀏覽器語言
+    const getLanguage = () => {
+      const lang = navigator.language || navigator.userLanguage;
+      if (lang.startsWith('es')) return 'es';
+      if (lang.startsWith('fr')) return 'fr';
+      if (lang.startsWith('de')) return 'de';
+      if (lang.startsWith('zh-TW')) return 'zh-TW';
+      if (lang.startsWith('zh')) return 'zh-CN';
+      return 'en';
+    };
+
+    // 設定文字內容
+    const setLanguage = (lang) => {
+      document.getElementById('title').innerText = translations[lang].missing_url;
+      document.getElementById('intro').innerHTML = translations[lang].missing_target + ' <a href="https://qsim.top">' + translations[lang].back_home +'</a>';
+    };
+
+    // 取得當前語言
+    const lang = getLanguage();
+
+    var currentDomain = window.location.hostname;
+    var pattern = /^(.*?)\.(qsim\.top|zigou\.web\.app|amypot\.github\.io)$/i;
+    var isFromQsim = pattern.test(currentDomain);
+    //if (!isFromQsim) {
+    //  window.location.href = 'https://return.qsim.top/' + window.location.pathname + window.location.search + window.location.hash;
+    //}
+
+    // 取得 pathname
+    const urlParams = new URLSearchParams(window.location.search);
+    let targetUrl = urlParams.get('url');
+    const targeturl64 = urlParams.get('url6');
+
+    // 解碼 Base64 函數
+    function decodeBase64(base64) {
+      try {
+        return atob(base64);
+      } catch (e) {
+        console.error("Base64解码失败", e);
+        return null;
+      }
+    }
+    // 處理解碼後的結果
+    if (targeturl64) {
+      const decodedUrl = decodeBase64(targeturl64);
+      if (decodedUrl) {
+        targetUrl = decodedUrl;
+      }else{
+        console.error("The decoded URL is invalid.");
+      }
+    }else{
+      console.log("No urlbase64 parameters found.");
+    }
+
+    //判斷域名
+    function isValidDomain(url) {
+      // 正規表示式匹配域名和子域名
+      const domainPattern = /^(https?:\/\/)?(([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,})(\/[a-zA-Z0-9-._~:\/?#[\]@!$&'()*+,;=]*)?$/;
+      return domainPattern.test(url);
+    }
+    // 判斷 userAgent
+    var userAgent = navigator.userAgent;
+    let shouldCreateLink = false;
+    // 判斷域名
+    if (!isValidDomain(targetUrl) && targetUrl){
+        document.getElementById('title').innerText = translations[lang].missing_url;
+        document.getElementById('intro').innerHTML = translations[lang].url_error;
+        shouldCreateLink = true;
+      }else if (targetUrl) {
+      // 判斷referer來確定網站來源
+      const referrer = document.referrer;
+      const isFromQsims = referrer && (referrer.includes('qsim.top') || referrer.endsWith('.qsim.top') || referrer.endsWith('amypot.github.io'));
+      
+      if (isFromQsims && userAgent.includes('Mozilla/5.0')) {
+        document.getElementById('title').innerText = translations[lang].redirecting;
+        document.getElementById('intro').innerText = translations[lang].click_continue;
+        shouldCreateLink = true;
+        setTimeout(() => {
+          window.location.href = `https://${targetUrl}`;
+        }, 2600);
+      } else {
+        document.getElementById('title').innerText = translations[lang].error_redirect;
+        document.getElementById('intro').innerText = translations[lang].error_source;
+        shouldCreateLink = true;
+      }
+    } else {
+      setLanguage(lang);
+    }
+    if (shouldCreateLink){
+      if(!(userAgent.includes('Mozilla/5.0') && userAgent.includes('like Gecko'))){
+        targetUrl = 'userAgent.Error';
+      }
+      const continueLink = document.createElement('a');
+      continueLink.href = `https://${targetUrl}`;
+      continueLink.innerText = targetUrl;
+      document.getElementById('intro').appendChild(continueLink);
+    }
+  </script>
+</body>
+</html>
