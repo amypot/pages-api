@@ -15,6 +15,12 @@
       overflow-y: hidden;
       background-color: #eee;
     }
+    #title {
+      margin: 10px 0;
+    }
+    h2 b, h1 {
+      color: red;
+    }
     a {
       color: gray;
       text-decoration: none;
@@ -33,7 +39,8 @@
 </head>
 <body>
   <div id="c">
-    <h1 id="title"></h1>
+    <h1 style="color: red;font-size: xxx-large;" id="title">⚠️</h1>
+    <h2 id="title2"></h2>
     <span id="intro"></span>
   </div>
   
@@ -41,7 +48,9 @@
     // 多語言內容
     const translations = {
       "en": {
-        "redirecting": "Redirecting...",
+        "warn": "Pay attention to website security",
+        "domain": "Domain:",
+        "redirecting": ", redirecting...",
         "click_continue": "If you are not redirected, please click the link to continue: ",
         "error_redirect": "Redirect Error",
         "error_source": "Source error. Please check security and click the link to continue: ",
@@ -51,7 +60,9 @@
         "back_home": "Return to homepage"
       },
       "es": {
-        "redirecting": "Redirigiendo...",
+        "warn": "Preste atención a la seguridad del sitio web",
+        "domain": "Dominio:",
+        "redirecting": ", redirigiendo...",
         "click_continue": "Si no se redirige, haga clic en el enlace para continuar: ",
         "error_redirect": "Error de redirección",
         "error_source": "Error de origen. Por favor, verifique la seguridad y haga clic en el enlace para continuar: ",
@@ -61,7 +72,9 @@
         "back_home": "Regresar a la página de inicio"
       },
       "fr": {
-        "redirecting": "Redirection en cours...",
+        "warn": "Faites attention à la sécurité du site Web",
+        "domain": "Domaine:",
+        "redirecting": ", redirection en cours...",
         "click_continue": "Si vous n'êtes pas redirigé, veuillez cliquer sur le lien pour continuer: ",
         "error_redirect": "Erreur de redirection",
         "error_source": "Erreur de source. Veuillez vérifier la sécurité, puis cliquez sur le lien pour continuer: ",
@@ -71,7 +84,9 @@
         "back_home": "Retourner à la page d'accueil"
       },
       "de": {
-        "redirecting": "Weiterleitung...",
+        "warn": "Achten Sie auf die Sicherheit der Website",
+        "domain": "Domain:",
+        "redirecting": ", Weiterleitung...",
         "click_continue": "Wenn Sie nicht weitergeleitet werden, klicken Sie bitte auf den Link, um fortzufahren: ",
         "error_redirect": "Weiterleitungsfehler",
         "error_source": "Quellenfehler. Bitte überprüfen Sie die Sicherheit und klicken Sie auf den Link, um fortzufahren: ",
@@ -81,7 +96,9 @@
         "back_home": "Zur Startseite zurückkehren"
       },
       "zh-TW": {
-        "redirecting": "跳轉中...",
+        "warn": "注意網站安全",
+        "domain": "網域：",
+        "redirecting": "，跳轉中...",
         "click_continue": "如未跳轉，請點擊鏈接繼續訪問：",
         "error_redirect": "跳轉錯誤",
         "error_source": "來源錯誤，請檢查安全後點擊連結繼續訪問：",
@@ -91,7 +108,9 @@
         "back_home": "返回首頁"
       },
       "zh-CN": {
-        "redirecting": "跳转中...",
+        "warn": "注意网站安全",
+        "domain": "域名：",
+        "redirecting": "，跳转中...",
         "click_continue": "如未跳转，请点击以下链接继续访问：",
         "error_redirect": "跳转错误",
         "error_source": "来源错误，请检查安全后点击链接继续访问：",
@@ -112,22 +131,15 @@
       if (lang.startsWith('zh')) return 'zh-CN';
       return 'en';
     };
-
+    
     // 設定文字內容
     const setLanguage = (lang) => {
-      document.getElementById('title').innerText = translations[lang].missing_url;
+      document.getElementById('title2').innerText = translations[lang].missing_url;
       document.getElementById('intro').innerHTML = translations[lang].missing_target + ' <a href="https://amypot.github.io/pages-api">' + translations[lang].back_home +'</a>';
     };
 
     // 取得當前語言
     const lang = getLanguage();
-
-    var currentDomain = window.location.hostname;
-    var pattern = /^(.*?)\.(qsim\.top|amypot\.github\.io)$/i;
-    var isFromQsim = pattern.test(currentDomain);
-    //if (!isFromQsim) {
-    //  window.location.href = 'https://amypot.github.io/pages-api/return/all/' + window.location.pathname + window.location.search + window.location.hash;
-    //}
 
     // 取得 pathname
     const urlParams = new URLSearchParams(window.location.search);
@@ -151,8 +163,6 @@
       }else{
         console.error("The decoded URL is invalid.");
       }
-    }else{
-      console.log("No urlbase64 parameters found.");
     }
 
     //判斷域名
@@ -163,25 +173,31 @@
     }
     // 判斷 userAgent
     var userAgent = navigator.userAgent;
+
     let shouldCreateLink = false;
     // 判斷域名
     if (!isValidDomain(targetUrl) && targetUrl){
-        document.getElementById('title').innerText = translations[lang].missing_url;
+        document.getElementById('title2').innerText = translations[lang].missing_url;
         document.getElementById('intro').innerHTML = translations[lang].url_error;
         shouldCreateLink = true;
       }else if (targetUrl) {
       // 判斷referer來確定網站來源
       const referrer = document.referrer;
-      const isFromQsims = !referrer ;
+      // const isFromQsims = !referrer ;
+      const domain1 = targetUrl.split('/')[0];
       
-      if (isFromQsims && userAgent.includes('Mozilla/5.0')) {
-        let countdown = 5;
-        document.getElementById('title').innerText = `${translations[lang].redirecting} (${countdown}s)`;
+      if (userAgent.includes('Mozilla/5.0') && userAgent.includes('Gecko')) { // isFromQsims && 
+        let countdown = 6;
+        function updateTitle() {
+          document.getElementById('title2').innerHTML = `${translations[lang].domain} <b>${domain1}</b> ${translations[lang].redirecting} (${countdown}s)`;
+        }
+        document.getElementById('title').innerText += translations[lang].warn;
+        updateTitle();
         document.getElementById('intro').innerText = translations[lang].click_continue;
         const intervalId = setInterval(() => {
           countdown--;
           if (countdown > 0) {
-            document.getElementById('title').innerText = `${translations[lang].redirecting} (${countdown}s)`;
+            updateTitle();
           } else {
             clearInterval(intervalId);
           }
@@ -189,11 +205,11 @@
         
         setTimeout(() => {
           window.location.href = `https://${targetUrl}`;
-        }, 5000);
+        }, 6000);
         
         shouldCreateLink = true;
       } else {
-        document.getElementById('title').innerText = translations[lang].error_redirect;
+        document.getElementById('title2').innerText = translations[lang].error_redirect;
         document.getElementById('intro').innerText = translations[lang].error_source;
         shouldCreateLink = true;
       }
