@@ -44,7 +44,7 @@
         "redirecting": "Redirecting...",
         "click_continue": "If you are not redirected, please click the link to continue: ",
         "error_redirect": "Redirect Error",
-        "error_source": "The source is not from our site, please check the security and click the link to continue: ",
+        "error_source": "Source error. Please check security and click the link to continue: ",
         "missing_url": "ERROR",
         "missing_target": "Missing target URL",
         "url_error": "URL Error: ",
@@ -54,7 +54,7 @@
         "redirecting": "Redirigiendo...",
         "click_continue": "Si no se redirige, haga clic en el enlace para continuar: ",
         "error_redirect": "Error de redirección",
-        "error_source": "La fuente no es de nuestro sitio, por favor verifique la seguridad y haga clic en el enlace para continuar: ",
+        "error_source": "Error de origen. Por favor, verifique la seguridad y haga clic en el enlace para continuar: ",
         "missing_url": "ERROR",
         "missing_target": "Falta la URL de destino",
         "url_error": "error de URL: ",
@@ -64,7 +64,7 @@
         "redirecting": "Redirection en cours...",
         "click_continue": "Si vous n'êtes pas redirigé, veuillez cliquer sur le lien pour continuer: ",
         "error_redirect": "Erreur de redirection",
-        "error_source": "La source ne provient pas de notre site, veuillez vérifier la sécurité puis cliquer sur le lien pour continuer: ",
+        "error_source": "Erreur de source. Veuillez vérifier la sécurité, puis cliquez sur le lien pour continuer: ",
         "missing_url": "ERROR",
         "missing_target": "URL de destination manquante",
         "url_error": "Erreur d'URL: ",
@@ -74,7 +74,7 @@
         "redirecting": "Weiterleitung...",
         "click_continue": "Wenn Sie nicht weitergeleitet werden, klicken Sie bitte auf den Link, um fortzufahren: ",
         "error_redirect": "Weiterleitungsfehler",
-        "error_source": "Die Quelle stammt nicht von unserer Website, bitte überprüfen Sie die Sicherheit und klicken Sie auf den Link, um fortzufahren: ",
+        "error_source": "Quellenfehler. Bitte überprüfen Sie die Sicherheit und klicken Sie auf den Link, um fortzufahren: ",
         "missing_url": "ERROR",
         "missing_target": "Fehlende Ziel-URL",
         "url_error": "URL-Fehler: ",
@@ -84,7 +84,7 @@
         "redirecting": "跳轉中...",
         "click_continue": "如未跳轉，請點擊鏈接繼續訪問：",
         "error_redirect": "跳轉錯誤",
-        "error_source": "來源並非本站，請檢查安全後點擊連結繼續訪問：",
+        "error_source": "來源錯誤，請檢查安全後點擊連結繼續訪問：",
         "missing_url": "錯誤",
         "missing_target": "缺少目標網址",
         "url_error": "網址錯誤：",
@@ -94,7 +94,7 @@
         "redirecting": "跳转中...",
         "click_continue": "如未跳转，请点击以下链接继续访问：",
         "error_redirect": "跳转错误",
-        "error_source": "来源并非本站，请检查安全后点击链接继续访问：",
+        "error_source": "来源错误，请检查安全后点击链接继续访问：",
         "missing_url": "错误",
         "missing_target": "缺少目标网址",
         "url_error": "网址错误：",
@@ -175,12 +175,23 @@
       const isFromQsims = !referrer ;
       
       if (isFromQsims && userAgent.includes('Mozilla/5.0')) {
-        document.getElementById('title').innerText = translations[lang].redirecting;
+        let countdown = 5;
+        document.getElementById('title').innerText = `${translations[lang].redirecting} (${countdown}s)`;
         document.getElementById('intro').innerText = translations[lang].click_continue;
-        shouldCreateLink = true;
+        const intervalId = setInterval(() => {
+          countdown--;
+          if (countdown > 0) {
+            document.getElementById('title').innerText = `${translations[lang].redirecting} (${countdown}s)`;
+          } else {
+            clearInterval(intervalId);
+          }
+        }, 1000);
+        
         setTimeout(() => {
           window.location.href = `https://${targetUrl}`;
         }, 5000);
+        
+        shouldCreateLink = true;
       } else {
         document.getElementById('title').innerText = translations[lang].error_redirect;
         document.getElementById('intro').innerText = translations[lang].error_source;
