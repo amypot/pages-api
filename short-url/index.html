@@ -1,109 +1,299 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous">
-  <title>Shorter URL</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      cursor: default;
-    }
-    html, body {
-      height: 100%;
-    }
-    body {
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      justify-content: center;
-      vertical-align: center;
-      flex-wrap: wrap;
-      align-content: center;
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="https://qsim.top/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <title>短链</title>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --success: #10B981;
+            --danger: #EF4444;
+            --bg: #f8fafc;
+        }
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+        }
+        h1 {
+            /* text-align: center; */
+            color: #1e293b;
+            margin: 0 0 2rem;
+            font-size: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 0.75rem 4px;
+            /* border: 2px solid #e2e8f0;
+            border-radius: 0.5rem; */
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, .42);
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            /*box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);*/
+            box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.2);
+        }
+        .form-group:focus-within label{
+            color: #1e293b;
+        }
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .result-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            display: none;
+        }
+        .result-box.active {
+            display: block;
+        }
+        .short-url {
+            color: var(--primary);
+            font-weight: 600;
+            word-break: break-all;
+        }
+        .copy-btn {
+            margin-top: 1rem;
+            background: var(--success);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .error-box {
+            color: var(--danger);
+            padding: 1rem;
+            background: #fee2e2;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+            color: #eee;
+        }
+        .cf-turnstile-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .cf-turnstile-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        .cf-turnstile-container p {
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
 
-      color: #2a2b2c;
-      background-color: #ebedee;
-      overflow: hidden;
-    }
-    .card {
-      background-color: transparent;
-      width: 768px;
-    }
-    .card-text {
-      text-align: center;
-    }
-    .card-text > a {
-      text-decoration: none;
-      color: #007bff;
-    }
-    .card-text > a {
-      cursor: pointer;
-    }
-    .form-control {
-        cursor: auto;
-    }
-    @media (max-width: 769px) {
-      .card {
-        width: 80%;
-      }
-    }
-    @media (max-width: 420px) {
-      .card {
-        width: 95%;
-      }
-    }
-    @media (prefers-color-scheme: dark) { 
-      body {
-        color: #d9d9d9; 
-        background: #1b1b1b;
-      }
-      .card {
-        background-color: #252d38;
-      }
-    } 
-  </style>
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="card">
-    <h5 class="card-header">🎁 Shorten your URLs !</h5>
-    <div class="card-body">
-      <h5 class="card-title">Please enter the long URL to be shortened :</h5>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Example: https://example.com/" id="text">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button" onclick='shorturl()' id="searchbtn">Shorten it</button>
+    <div class="container">
+        <h1>短链</h1>
+
+        <div class="error-box" id="error"></div>
+
+        <form id="shortenForm">
+            <div class="form-group">
+                <label for="url">长链接地址</label>
+                <input type="url" id="url" required placeholder="https://example.com/very-long-url">
+            </div>
+            
+            <div class="form-group">
+                <label for="expire">有效期</label>
+                <select id="expire">
+                    <option value="1week">1周</option>
+                    <option value="1month">1个月</option>
+                    <option value="3months">3个月</option>
+                    <option value="6months">6个月</option>
+                    <!-- <option value="1year">1年</option> -->
+                    <!-- <option value="permanent">永久</option> -->
+                </select>
+            </div>
+            
+            <button type="button" id="submit-btn">生成短链</button>
+            
+        </form>
+        
+        <div class="result-box" id="result">
+            <div>生成的短链接：</div>
+            <a class="short-url" id="shortUrl" target="_blank"></a>
+            <button class="copy-btn" onclick="copyUrl()">复制链接</button>
         </div>
-      </div>    
-      <div class="card-text">
-        <a href="https://github.com/xyTom/Url-Shorten-Worker/" target="_self">Fork me on GitHub</a>
-      </div>
-      <p id="notice"></p>             
     </div>
-  </div>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Result</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+
+    <!-- Cloudflare Turnstile 验证码模态框 -->
+    <div class="cf-turnstile-modal" id="cfModal">
+        <div class="cf-turnstile-container">
+            <p>请完成验证以继续</p>
+            <div id="cfWidget"></div>
         </div>
-        <div class="modal-body" id="result">No result</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-toggle="popover" data-placement="bottom" data-content="Copied!">Copy</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>    
-        </div>
-      </div>
     </div>
-  </div>         
-  <script src="https://gcore.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
-  <script src="https://gcore.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://gcore.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
-  <script src="https://gcore.jsdelivr.net/npm/url-shorten-worker@1.0.7/main.js" crossorigin="anonymous"></script>
+
+    <script>
+        const form = document.getElementById('shortenForm');
+        const errorBox = document.getElementById('error');
+        const resultBox = document.getElementById('result');
+        const shortUrl = document.getElementById('shortUrl');
+        const submitBtn = document.getElementById('submit-btn');
+        const cfModal = document.getElementById('cfModal');
+        const cfWidget = document.getElementById('cfWidget');
+        const siteKey = "${siteKey}"; // 在脚本中使用定义好的siteKey
+        let turnstileToken = '';
+        let turnstileWidgetId = null;
+
+        // 点击提交按钮时显示验证码模态框
+        submitBtn.addEventListener('click', () => {
+            // 验证表单输入
+            if (!form.url.value) {
+                showError('请输入长链接地址');
+                return;
+            }
+            
+            // 显示验证码模态框
+            cfModal.style.display = 'flex';
+            
+            // 加载Turnstile验证码
+            if (!turnstileWidgetId) {
+                turnstileWidgetId = turnstile.render(cfWidget, {
+                    sitekey: siteKey,
+                    theme: 'light',
+                    callback: onTurnstileSuccess
+                });
+            } else {
+                turnstile.reset(turnstileWidgetId);
+            }
+        });
+
+        function onTurnstileSuccess(token) {
+            turnstileToken = token;
+            cfModal.style.display = 'none';
+            submitForm();
+        }
+
+        async function submitForm() {
+            submitBtn.disabled = true;
+            const data = {
+                url: form.url.value,
+                expire: form.expire.value,
+                turnstileToken: turnstileToken,
+            };
+            
+            try {
+                const response = await fetch('/urlshort', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    errorBox.style.display = 'none';
+                    const fullUrl = window.location.origin + result.key;
+                    shortUrl.href = fullUrl;
+                    shortUrl.textContent = fullUrl;
+                    resultBox.classList.add('active');
+                } else {
+                    showError(result.error || '请求失败');
+                }
+            } catch (err) {
+                showError('网络请求失败，请稍后重试');
+            } finally {
+                submitBtn.disabled = false;
+                turnstileToken = '';
+            }
+        }
+
+        function showError(message) {
+            errorBox.textContent = message;
+            errorBox.style.display = 'block';
+            resultBox.classList.remove('active');
+        }
+
+        function copyUrl() {
+            navigator.clipboard.writeText(shortUrl.href)
+                .then(() => alert('链接已复制到剪贴板'))
+                .catch(() => alert('复制失败，请手动复制'));
+        }
+
+        // 点击模态框背景关闭模态框
+        cfModal.addEventListener('click', (e) => {
+            if (e.target === cfModal) {
+                cfModal.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+  <footer><center><p>© <a href="//qsim.top">QSIM</a></p></center></footer>
 </body>
 </html>
