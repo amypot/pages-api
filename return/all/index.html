@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Return</title>
-  <link rel="icon" sizes="64x64" href="//qsim.top/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAARVBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8iIiI3NzcODg74+Ph3d3empqbe3t5KSkq9vb1eXl7R0dGNjY3q6uro7ezrAAAACHRSTlMAiyC369BSb0HKjY0AAAMGSURBVFjDtVfbkqwgDBzUUcNdRP//U88uBsLFUadObT9aJHY6IQmvT+hG1r+H+QfDu2dj9/oKI3vPFd5sfGrdTWjd+Ji6J+ZsSBbbZtbCxcBuXUzDTDAAwEsWw3T9+748bgG2OpD+gsRYH14A1laLj2qy+QfC5ybLcqYmO7cP9FcAK1sT4XQRxkf7WShFYRM8xnLhIcqnAUDQScrHLi89sBkhPYBDAXSy4fuRD9KFtfqT8vaIBsDMCCSGKukmF13OTrsFPSlYchVcdKVCdXWVAC0cconuDh2lRWaZDFNgXNQ9xgCadIwJXmM0Uwog1L9t1d8CWwRXwd3BzId70RUZcCFIAmWEdFxKZiwRQPXbwjdodJwQeVUQhem0WKTxhv/wqiqbqoJUeJefKQVg+cxDuDU0hvamGqqrWIMC9Wss+EFIBPBUK8fBMUlIxUIEYub5apyFAGWdznPFKIKq9tDAzWLzUAE7BsbQlaIr9L/HP8IZfKqOrmxjco38MkPV2CtK7phLUHK5RGLK8B41WOEGWB49alhD3jKADVUczuyFrSJvgVU7vFLhioK/5sLDNY5kvpKJzSvSP5DBoIPUzTXZP3JgyQH1DrSnEG5FSCJavAdLkvka+MPhSCP1E2nhMURIY5/3YImBP3fQv1jeNEVVwvcasLKfrKGRPII60jjm19n9ZtI8tKfxRJdBikBkhyewIjZFFmwXmTUFY2/NcXCz2FR9OVSkWLQxzttd1dR374wWktalEIMMRdBASslryGL1xMFCk/NLTGm0cYVD5QpyMzSs8+nK8ArxxqQd90u17iGFYqhkvYXLelezDQFUgYbKCmkcLsrykoICXSqA6EnH/JRBVvXG0W56He4+nE7RXpRB7tnm1tVrHne6OtVmd8VA25WbnZ5qs+uiS9auugSXdNQUtBCYSisvluVmv7NRxwU/acev1nVS21Yrg24S0ILl+52hMW1oQT3A7p88korR72nJ9pL0v310EWSMa8VH192z7xLD9M3DszVn3V8/fb9/fP/38/8f2yhz7AlnKMgAAAAASUVORK5CYII=">
   <style>
     body {
       margin: 0 2rem;
@@ -135,7 +135,7 @@
     // 設定文字內容
     const setLanguage = (lang) => {
       document.getElementById('title2').innerText = translations[lang].missing_url;
-      document.getElementById('intro').innerHTML = translations[lang].missing_target + ' <a href="https://amypot.github.io/pages-api">' + translations[lang].back_home +'</a>';
+      document.getElementById('intro').innerHTML = translations[lang].missing_target + ' <a href="./">' + translations[lang].back_home +'</a>';
     };
 
     // 取得當前語言
