@@ -222,7 +222,7 @@
       }
       const continueLink = document.createElement('a');
       continueLink.href = `https://${targetUrl}`;
-      continueLink.innerText = targetUrl;
+      continueLink.innerText = targetUrl.slice(0, 256) + (targetUrl.length > 256 ? "..." : "");
       document.getElementById('intro').appendChild(continueLink);
     }
   </script>
