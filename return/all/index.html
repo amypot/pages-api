@@ -168,7 +168,7 @@
     //判斷域名
     function isValidDomain(url) {
       // 正規表示式匹配域名和子域名
-      const domainPattern = /^(https?:\/\/)?(([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,})(\/[a-zA-Z0-9-._~:\/?#[\]@!$&'()*+,;=]*)?$/;
+      const domainPattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z\u00a1-\uffff]{2,20}(\/.*)?$/;
       return domainPattern.test(url);
     }
     // 判斷 userAgent
