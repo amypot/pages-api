@@ -180,7 +180,7 @@
         shouldCreateLink = true;
         setTimeout(() => {
           window.location.href = `https://${targetUrl}`;
-        }, 1600);
+        }, 1000);
       } else {
         document.getElementById('title').innerText = translations[lang].error_redirect;
         document.getElementById('intro').innerText = translations[lang].error_source;
