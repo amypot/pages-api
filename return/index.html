@@ -42,43 +42,203 @@
     const translations = {
       "en": {
         "redirecting": "Redirecting...",
-        "click_continue": "If you are not redirected, please click the link to continue: ",
+        "click_continue": "If you are not redirected, please click the following link to continue:",
         "error_redirect": "Redirect Error",
-        "error_source": "The source is not from our site, please check the security and click the link to continue: ",
-        "missing_url": "ERROR",
+        "error_source": "The source is not from this site. Please check for security before clicking the link to continue:",
+        "missing_url": "Error",
         "missing_target": "Missing target URL",
-        "url_error": "URL Error: ",
-        "back_home": "Return to homepage"
+        "url_error": "URL error:",
+        "back_home": "Back to home"
       },
       "es": {
         "redirecting": "Redirigiendo...",
-        "click_continue": "Si no se redirige, haga clic en el enlace para continuar: ",
+        "click_continue": "Si no es redirigido, por favor haga clic en el siguiente enlace para continuar:",
         "error_redirect": "Error de redirección",
-        "error_source": "La fuente no es de nuestro sitio, por favor verifique la seguridad y haga clic en el enlace para continuar: ",
-        "missing_url": "ERROR",
+        "error_source": "El origen no es de este sitio. Verifique la seguridad y luego haga clic en el enlace para continuar:",
+        "missing_url": "Error",
         "missing_target": "Falta la URL de destino",
-        "url_error": "error de URL: ",
-        "back_home": "Regresar a la página de inicio"
+        "url_error": "Error de URL:",
+        "back_home": "Volver a la página principal"
       },
       "fr": {
         "redirecting": "Redirection en cours...",
-        "click_continue": "Si vous n'êtes pas redirigé, veuillez cliquer sur le lien pour continuer: ",
+        "click_continue": "Si la redirection ne fonctionne pas, veuillez cliquer sur le lien suivant pour continuer :",
         "error_redirect": "Erreur de redirection",
-        "error_source": "La source ne provient pas de notre site, veuillez vérifier la sécurité puis cliquer sur le lien pour continuer: ",
-        "missing_url": "ERROR",
-        "missing_target": "URL de destination manquante",
-        "url_error": "Erreur d'URL: ",
-        "back_home": "Retourner à la page d'accueil"
+        "error_source": "La source ne provient pas de ce site. Veuillez vérifier la sécurité avant de cliquer sur le lien pour continuer :",
+        "missing_url": "Erreur",
+        "missing_target": "URL cible manquante",
+        "url_error": "Erreur d'URL :",
+        "back_home": "Retour à l'accueil"
       },
       "de": {
         "redirecting": "Weiterleitung...",
-        "click_continue": "Wenn Sie nicht weitergeleitet werden, klicken Sie bitte auf den Link, um fortzufahren: ",
+        "click_continue": "Wenn Sie nicht weitergeleitet werden, klicken Sie bitte auf den folgenden Link, um fortzufahren:",
         "error_redirect": "Weiterleitungsfehler",
-        "error_source": "Die Quelle stammt nicht von unserer Website, bitte überprüfen Sie die Sicherheit und klicken Sie auf den Link, um fortzufahren: ",
-        "missing_url": "ERROR",
-        "missing_target": "Fehlende Ziel-URL",
-        "url_error": "URL-Fehler: ",
-        "back_home": "Zur Startseite zurückkehren"
+        "error_source": "Die Quelle ist nicht von dieser Seite. Bitte überprüfen Sie die Sicherheit und klicken Sie dann auf den Link, um fortzufahren:",
+        "missing_url": "Fehler",
+        "missing_target": "Ziel-URL fehlt",
+        "url_error": "URL-Fehler:",
+        "back_home": "Zurück zur Startseite"
+      },
+      "ja": {
+        "redirecting": "リダイレクト中...",
+        "click_continue": "リダイレクトされない場合は、次のリンクをクリックして続行してください：",
+        "error_redirect": "リダイレクトエラー",
+        "error_source": "このサイトからのリダイレクトではありません。安全性を確認してからリンクをクリックして続行してください：",
+        "missing_url": "エラー",
+        "missing_target": "ターゲットURLがありません",
+        "url_error": "URLエラー：",
+        "back_home": "ホームページに戻る"
+      },
+      "ko": {
+        "redirecting": "리디렉션 중...",
+        "click_continue": "리디렉션되지 않으면 다음 링크를 클릭하여 계속하십시오:",
+        "error_redirect": "리디렉션 오류",
+        "error_source": "소스가이 사이트의 것이 아닙니다. 보안을 확인한 후 링크를 클릭하여 계속하십시오:",
+        "missing_url": "오류",
+        "missing_target": "대상 URL이 없습니다",
+        "url_error": "URL 오류:",
+        "back_home": "홈으로 돌아가기"
+      },
+      "ru": {
+        "redirecting": "Перенаправление...",
+        "click_continue": "Если перенаправление не произошло, перейдите по следующей ссылке:",
+        "error_redirect": "Ошибка перенаправления",
+        "error_source": "Источник не с этого сайта. Пожалуйста, проверьте безопасность и нажмите на ссылку, чтобы продолжить:",
+        "missing_url": "Ошибка",
+        "missing_target": "Отсутствует целевой URL",
+        "url_error": "Ошибка URL:",
+        "back_home": "Вернуться на главную"
+      },
+      "pt": {
+        "redirecting": "Redirecionando...",
+        "click_continue": "Se não for redirecionado, clique no link a seguir para continuar:",
+        "error_redirect": "Erro de redirecionamento",
+        "error_source": "A origem não é deste site. Verifique a segurança e clique no link para continuar:",
+        "missing_url": "Erro",
+        "missing_target": "URL de destino ausente",
+        "url_error": "Erro de URL:",
+        "back_home": "Voltar para a página inicial"
+      },
+      "it": {
+        "redirecting": "Reindirizzamento in corso...",
+        "click_continue": "Se non vieni reindirizzato, fai clic sul seguente link per continuare:",
+        "error_redirect": "Errore di reindirizzamento",
+        "error_source": "La fonte non proviene da questo sito. Controlla la sicurezza e fai clic sul link per continuare:",
+        "missing_url": "Errore",
+        "missing_target": "URL di destinazione mancante",
+        "url_error": "Errore URL:",
+        "back_home": "Torna alla home"
+      },
+      "ar": {
+        "redirecting": "جارٍ إعادة التوجيه...",
+        "click_continue": "إذا لم يتم إعادة توجيهك، يرجى النقر على الرابط التالي للمتابعة:",
+        "error_redirect": "خطأ في إعادة التوجيه",
+        "error_source": "المصدر ليس من هذا الموقع. يرجى التحقق من الأمان ثم النقر على الرابط للمتابعة:",
+        "missing_url": "خطأ",
+        "missing_target": "عنوان URL المستهدف مفقود",
+        "url_error": "خطأ في عنوان URL:",
+        "back_home": "العودة إلى الصفحة الرئيسية"
+      },
+      "hi": {
+        "redirecting": "रीडायरेक्ट किया जा रहा है...",
+        "click_continue": "यदि आप रीडायरेक्ट नहीं होते हैं, तो कृपया जारी रखने के लिए निम्नलिखित लिंक पर क्लिक करें:",
+        "error_redirect": "रीडायरेक्शन त्रुटि",
+        "error_source": "स्रोत इस साइट से नहीं है। कृपया सुरक्षा की जाँच करें और फिर जारी रखने के लिए लिंक पर क्लिक करें:",
+        "missing_url": "त्रुटि",
+        "missing_target": "लक्ष्य यूआरएल गुम है",
+        "url_error": "यूआरएल त्रुटि:",
+        "back_home": "मुख पृष्ठ पर वापस"
+      },
+      "id": {
+        "redirecting": "Mengalihkan...",
+        "click_continue": "Jika Anda tidak dialihkan, silakan klik tautan berikut untuk melanjutkan:",
+        "error_redirect": "Kesalahan Pengalihan",
+        "error_source": "Sumber bukan dari situs ini. Silakan periksa keamanan lalu klik tautan untuk melanjutkan:",
+        "missing_url": "Kesalahan",
+        "missing_target": "URL target tidak ada",
+        "url_error": "Kesalahan URL:",
+        "back_home": "Kembali ke beranda"
+      },
+      "nl": {
+        "redirecting": "Bezig met omleiden...",
+        "click_continue": "Als u niet wordt omgeleid, klik dan op de volgende link om door te gaan:",
+        "error_redirect": "Omleidingsfout",
+        "error_source": "De bron is niet van deze site. Controleer de beveiliging en klik vervolgens op de link om door te gaan:",
+        "missing_url": "Fout",
+        "missing_target": "Doel-URL ontbreekt",
+        "url_error": "URL-fout:",
+        "back_home": "Terug naar de startpagina"
+      },
+      "tr": {
+        "redirecting": "Yönlendiriliyor...",
+        "click_continue": "Yönlendirilmezseniz, devam etmek için lütfen aşağıdaki bağlantıya tıklayın:",
+        "error_redirect": "Yönlendirme Hatası",
+        "error_source": "Kaynak bu siteden değil. Lütfen güvenliği kontrol edip devam etmek için bağlantıya tıklayın:",
+        "missing_url": "Hata",
+        "missing_target": "Hedef URL eksik",
+        "url_error": "URL hatası:",
+        "back_home": "Ana sayfaya dön"
+      },
+      "pl": {
+        "redirecting": "Przekierowywanie...",
+        "click_continue": "Jeśli przekierowanie nie nastąpi, kliknij poniższy link, aby kontynuować:",
+        "error_redirect": "Błąd przekierowania",
+        "error_source": "Źródło nie pochodzi z tej witryny. Sprawdź zabezpieczenia i kliknij link, aby kontynuować:",
+        "missing_url": "Błąd",
+        "missing_target": "Brak docelowego adresu URL",
+        "url_error": "Błąd adresu URL:",
+        "back_home": "Powrót na stronę główną"
+      },
+      "sv": {
+        "redirecting": "Omdirigerar...",
+        "click_continue": "Om du inte omdirigeras, klicka på följande länk för att fortsätta:",
+        "error_redirect": "Omdirigeringsfel",
+        "error_source": "Källan är inte från den här webbplatsen. Kontrollera säkerheten och klicka sedan på länken för att fortsätta:",
+        "missing_url": "Fel",
+        "missing_target": "Mål-URL saknas",
+        "url_error": "URL-fel:",
+        "back_home": "Tillbaka till startsidan"
+      },
+      "vi": {
+        "redirecting": "Đang chuyển hướng...",
+        "click_continue": "Nếu bạn không được chuyển hướng, vui lòng nhấp vào liên kết sau để tiếp tục:",
+        "error_redirect": "Lỗi chuyển hướng",
+        "error_source": "Nguồn không phải từ trang này. Vui lòng kiểm tra bảo mật rồi nhấp vào liên kết để tiếp tục:",
+        "missing_url": "Lỗi",
+        "missing_target": "Thiếu URL đích",
+        "url_error": "Lỗi URL:",
+        "back_home": "Quay lại trang chủ"
+      },
+      "th": {
+        "redirecting": "กำลังเปลี่ยนเส้นทาง...",
+        "click_continue": "หากคุณไม่ถูกเปลี่ยนเส้นทาง โปรดคลิกลิงก์ต่อไปนี้เพื่อดำเนินการต่อ:",
+        "error_redirect": "ข้อผิดพลาดในการเปลี่ยนเส้นทาง",
+        "error_source": "แหล่งที่มาไม่ได้มาจากไซต์นี้ โปรดตรวจสอบความปลอดภัยแล้วคลิกลิงก์เพื่อดำเนินการต่อ:",
+        "missing_url": "ข้อผิดพลาด",
+        "missing_target": "ไม่พบ URL เป้าหมาย",
+        "url_error": "ข้อผิดพลาดของ URL:",
+        "back_home": "กลับไปที่หน้าแรก"
+      },
+      "fil": {
+        "redirecting": "Nagre-redirect...",
+        "click_continue": "Kung hindi ka na-redirect, paki-click ang sumusunod na link para magpatuloy:",
+        "error_redirect": "Error sa Pag-redirect",
+        "error_source": "Ang pinagmulan ay hindi mula sa site na ito. Paki-check ang seguridad at i-click ang link para magpatuloy:",
+        "missing_url": "Error",
+        "missing_target": "Nawawala ang target na URL",
+        "url_error": "Error sa URL:",
+        "back_home": "Bumalik sa home page"
+      },
+      "ms": {
+        "redirecting": "Mengalihkan...",
+        "click_continue": "Jika anda tidak dialihkan, sila klik pautan berikut untuk meneruskan:",
+        "error_redirect": "Ralat Pengalihan",
+        "error_source": "Sumber bukan dari laman web ini. Sila periksa keselamatan dan klik pautan untuk meneruskan:",
+        "missing_url": "Ralat",
+        "missing_target": "URL sasaran tiada",
+        "url_error": "Ralat URL:",
+        "back_home": "Kembali ke laman utama"
       },
       "zh-TW": {
         "redirecting": "跳轉中...",
